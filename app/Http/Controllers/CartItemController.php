@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class CartItemController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $cartItems = CartItem::all();
 
@@ -20,12 +20,12 @@ class CartItemController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('cartItem.create');
     }
 
-    public function store(CartItemStoreRequest $request): Response
+    public function store(CartItemStoreRequest $request)
     {
         $cartItem = CartItem::create($request->validated());
 
@@ -34,21 +34,21 @@ class CartItemController extends Controller
         return redirect()->route('cartItems.index');
     }
 
-    public function show(Request $request, CartItem $cartItem): Response
+    public function show(Request $request, CartItem $cartItem)
     {
         return view('cartItem.show', [
             'cartItem' => $cartItem,
         ]);
     }
 
-    public function edit(Request $request, CartItem $cartItem): Response
+    public function edit(Request $request, CartItem $cartItem)
     {
         return view('cartItem.edit', [
             'cartItem' => $cartItem,
         ]);
     }
 
-    public function update(CartItemUpdateRequest $request, CartItem $cartItem): Response
+    public function update(CartItemUpdateRequest $request, CartItem $cartItem)
     {
         $cartItem->update($request->validated());
 
@@ -57,7 +57,7 @@ class CartItemController extends Controller
         return redirect()->route('cartItems.index');
     }
 
-    public function destroy(Request $request, CartItem $cartItem): Response
+    public function destroy(Request $request, CartItem $cartItem)
     {
         $cartItem->delete();
 

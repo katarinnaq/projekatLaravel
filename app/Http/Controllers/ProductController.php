@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
+use App\Models\Category;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $products = Product::all();
 
@@ -20,12 +22,14 @@ class ProductController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
-        return view('product.create');
+        $categories = Category::all();
+
+        return view('product.create', compact('categories'));
     }
 
-    public function store(ProductStoreRequest $request): Response
+    public function store(ProductStoreRequest $request)
     {
         $product = Product::create($request->validated());
 
@@ -34,21 +38,25 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function show(Request $request, Product $product): Response
+    public function show(Request $request, Product $product)
     {
         return view('product.show', [
             'product' => $product,
         ]);
     }
 
-    public function edit(Request $request, Product $product): Response
-    {
-        return view('product.edit', [
-            'product' => $product,
-        ]);
-    }
+   public function edit(Request $request, Product $product)
+{
+    $categories = Category::all(); // <-- dodaj ovo
 
-    public function update(ProductUpdateRequest $request, Product $product): Response
+    return view('product.edit', [
+        'product' => $product,
+        'categories' => $categories, // <-- prosledi view-u
+    ]);
+}
+
+
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $product->update($request->validated());
 
@@ -57,7 +65,7 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function destroy(Request $request, Product $product): Response
+    public function destroy(Request $request, Product $product)
     {
         $product->delete();
 

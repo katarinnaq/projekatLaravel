@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class OrderItemController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $orderItems = OrderItem::all();
 
@@ -20,12 +20,12 @@ class OrderItemController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('orderItem.create');
     }
 
-    public function store(OrderItemStoreRequest $request): Response
+    public function store(OrderItemStoreRequest $request)
     {
         $orderItem = OrderItem::create($request->validated());
 
@@ -34,21 +34,21 @@ class OrderItemController extends Controller
         return redirect()->route('orderItems.index');
     }
 
-    public function show(Request $request, OrderItem $orderItem): Response
+    public function show(Request $request, OrderItem $orderItem)
     {
         return view('orderItem.show', [
             'orderItem' => $orderItem,
         ]);
     }
 
-    public function edit(Request $request, OrderItem $orderItem): Response
+    public function edit(Request $request, OrderItem $orderItem)
     {
         return view('orderItem.edit', [
             'orderItem' => $orderItem,
         ]);
     }
 
-    public function update(OrderItemUpdateRequest $request, OrderItem $orderItem): Response
+    public function update(OrderItemUpdateRequest $request, OrderItem $orderItem)
     {
         $orderItem->update($request->validated());
 
@@ -57,7 +57,7 @@ class OrderItemController extends Controller
         return redirect()->route('orderItems.index');
     }
 
-    public function destroy(Request $request, OrderItem $orderItem): Response
+    public function destroy(Request $request, OrderItem $orderItem)
     {
         $orderItem->delete();
 

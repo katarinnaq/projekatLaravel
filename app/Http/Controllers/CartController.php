@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $carts = Cart::all();
 
@@ -20,12 +20,12 @@ class CartController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('cart.create');
     }
 
-    public function store(CartStoreRequest $request): Response
+    public function store(CartStoreRequest $request)
     {
         $cart = Cart::create($request->validated());
 
@@ -34,21 +34,21 @@ class CartController extends Controller
         return redirect()->route('carts.index');
     }
 
-    public function show(Request $request, Cart $cart): Response
+    public function show(Request $request, Cart $cart)
     {
         return view('cart.show', [
             'cart' => $cart,
         ]);
     }
 
-    public function edit(Request $request, Cart $cart): Response
+    public function edit(Request $request, Cart $cart)
     {
         return view('cart.edit', [
             'cart' => $cart,
         ]);
     }
 
-    public function update(CartUpdateRequest $request, Cart $cart): Response
+    public function update(CartUpdateRequest $request, Cart $cart)
     {
         $cart->update($request->validated());
 
@@ -57,7 +57,7 @@ class CartController extends Controller
         return redirect()->route('carts.index');
     }
 
-    public function destroy(Request $request, Cart $cart): Response
+    public function destroy(Request $request, Cart $cart)
     {
         $cart->delete();
 

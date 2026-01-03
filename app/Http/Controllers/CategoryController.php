@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $categories = Category::all();
 
@@ -20,12 +20,12 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('category.create');
     }
 
-    public function store(CategoryStoreRequest $request): Response
+    public function store(CategoryStoreRequest $request)
     {
         $category = Category::create($request->validated());
 
@@ -34,21 +34,21 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-    public function show(Request $request, Category $category): Response
+    public function show(Request $request, Category $category)
     {
         return view('category.show', [
             'category' => $category,
         ]);
     }
 
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category)
     {
         return view('category.edit', [
             'category' => $category,
         ]);
     }
 
-    public function update(CategoryUpdateRequest $request, Category $category): Response
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
         $category->update($request->validated());
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-    public function destroy(Request $request, Category $category): Response
+    public function destroy(Request $request, Category $category)
     {
         $category->delete();
 
