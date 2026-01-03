@@ -15,6 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                      <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            {{ __('Pocetna strana') }}
+                        </x-nav-link>
+
+                    @if(auth()->user()?->role === 'admin')
+                        <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
+                            {{ __('Dodaj proizvod') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('categories.create')" :active="request()->routeIs('categories.create')">
+                            {{ __('Dodaj kategoriju') }}
+                        </x-nav-link>
+                        
+                      
+                    @endif
                 </div>
             </div>
 
