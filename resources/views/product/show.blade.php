@@ -4,6 +4,13 @@
 <div class="container mt-5">
     <h1>Detalji proizvoda</h1>
 
+    <!-- Poruka za uspeh dodavanja u korpu -->
+    @if(session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="card mt-3">
         <div class="card-body">
             <img src="{{ asset('images/placeholder.jpg') }}" class="card-img-top mb-3" alt="{{ $product->naziv }}" style="width: 400px; height: auto;">
@@ -24,12 +31,10 @@
 
             <a href="{{ route('home') }}" class="btn btn-secondary mt-2">Nazad na proizvode</a>
 
-
             @if(auth()->user()?->role === 'admin')
-            <a href="{{ route('products.index') }}" class="btn btn-secondary mt-3">Nazad</a>
-            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning mt-3">Izmeni</a>
+                <a href="{{ route('products.index') }}" class="btn btn-secondary mt-3">Nazad</a>
+                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning mt-3">Izmeni</a>
             @endif
-
         </div>
     </div>
 </div>
