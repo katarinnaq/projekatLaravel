@@ -31,7 +31,7 @@ class CartItemController extends Controller
 
         $request->session()->flash('cartItem.id', $cartItem->id);
 
-        return redirect()->route('cartItems.index');
+        return redirect()->route('carts.index');
     }
 
     public function show(Request $request, CartItem $cartItem)
@@ -54,13 +54,13 @@ class CartItemController extends Controller
 
         $request->session()->flash('cartItem.id', $cartItem->id);
 
-        return redirect()->route('cartItems.index');
+        return redirect()->route('carts.index');
     }
 
     public function destroy(Request $request, CartItem $cartItem)
     {
         $cartItem->delete();
 
-        return redirect()->route('cartItems.index');
+        return redirect()->route('carts.index');
     }
 }

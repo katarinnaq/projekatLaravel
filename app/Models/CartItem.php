@@ -37,13 +37,14 @@ class CartItem extends Model
         ];
     }
 
-    public function korpa(): BelongsTo
+ 
+     public function product()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->belongsTo(Product::class, 'proizvod_id');
     }
 
-    public function proizvod(): BelongsTo
+    public function cart()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Cart::class, 'korpa_id');
     }
 }

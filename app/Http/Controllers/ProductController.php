@@ -71,4 +71,11 @@ class ProductController extends Controller
 
         return redirect()->route('products.index');
     }
+
+    public function home()
+{
+    $products = Product::with('kategorija')->get(); 
+
+    return view('publics.home', compact('products'));
+}
 }
