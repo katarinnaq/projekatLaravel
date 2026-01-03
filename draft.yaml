@@ -1,0 +1,45 @@
+models:
+  Category:
+    naziv: string:30
+    opis: text nullable
+
+  Product:
+    kategorija_id: id foreign:Category
+    tip_vode: string:20
+    naziv: string:30
+    opis: text nullable
+    cena: decimal:10,2
+    ambalaza: string:20
+
+  Cart:
+    kupac_id: id foreign:User
+
+  CartItem:
+    korpa_id: id foreign:Cart
+    proizvod_id: id foreign:Product
+    kolicina: integer
+    cena: decimal:10,2
+
+  Order:
+    kupac_id: id foreign:User
+    status: string:30
+
+  OrderItem:
+    porudzbina_id: id foreign:Order
+    proizvod_id: id foreign:Product
+    kolicina: integer
+    cena: decimal:10,2
+
+controllers:
+  Category:
+    resource
+  Product:
+    resource
+  Cart:
+    resource
+  CartItem:
+    resource
+  Order:
+    resource
+  OrderItem:
+    resource

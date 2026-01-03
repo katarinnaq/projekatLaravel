@@ -1,0 +1,77 @@
+created:
+    - app/Http/Controllers/CategoryController.php
+    - app/Http/Controllers/ProductController.php
+    - app/Http/Controllers/CartController.php
+    - app/Http/Controllers/CartItemController.php
+    - app/Http/Controllers/OrderController.php
+    - app/Http/Controllers/OrderItemController.php
+    - database/factories/CategoryFactory.php
+    - database/factories/ProductFactory.php
+    - database/factories/CartFactory.php
+    - database/factories/CartItemFactory.php
+    - database/factories/OrderFactory.php
+    - database/factories/OrderItemFactory.php
+    - database/migrations/2026_01_03_135116_create_categories_table.php
+    - database/migrations/2026_01_03_135117_create_products_table.php
+    - database/migrations/2026_01_03_135118_create_carts_table.php
+    - database/migrations/2026_01_03_135119_create_cart_items_table.php
+    - database/migrations/2026_01_03_135120_create_orders_table.php
+    - database/migrations/2026_01_03_135121_create_order_items_table.php
+    - app/Models/Category.php
+    - app/Models/Product.php
+    - app/Models/Cart.php
+    - app/Models/CartItem.php
+    - app/Models/Order.php
+    - app/Models/OrderItem.php
+    - tests/Feature/Http/Controllers/CategoryControllerTest.php
+    - tests/Feature/Http/Controllers/ProductControllerTest.php
+    - tests/Feature/Http/Controllers/CartControllerTest.php
+    - tests/Feature/Http/Controllers/CartItemControllerTest.php
+    - tests/Feature/Http/Controllers/OrderControllerTest.php
+    - tests/Feature/Http/Controllers/OrderItemControllerTest.php
+    - app/Http/Requests/CategoryStoreRequest.php
+    - app/Http/Requests/CategoryUpdateRequest.php
+    - app/Http/Requests/ProductStoreRequest.php
+    - app/Http/Requests/ProductUpdateRequest.php
+    - app/Http/Requests/CartStoreRequest.php
+    - app/Http/Requests/CartUpdateRequest.php
+    - app/Http/Requests/CartItemStoreRequest.php
+    - app/Http/Requests/CartItemUpdateRequest.php
+    - app/Http/Requests/OrderStoreRequest.php
+    - app/Http/Requests/OrderUpdateRequest.php
+    - app/Http/Requests/OrderItemStoreRequest.php
+    - app/Http/Requests/OrderItemUpdateRequest.php
+    - resources/views/category/index.blade.php
+    - resources/views/category/create.blade.php
+    - resources/views/category/show.blade.php
+    - resources/views/category/edit.blade.php
+    - resources/views/product/index.blade.php
+    - resources/views/product/create.blade.php
+    - resources/views/product/show.blade.php
+    - resources/views/product/edit.blade.php
+    - resources/views/cart/index.blade.php
+    - resources/views/cart/create.blade.php
+    - resources/views/cart/show.blade.php
+    - resources/views/cart/edit.blade.php
+    - resources/views/cartItem/index.blade.php
+    - resources/views/cartItem/create.blade.php
+    - resources/views/cartItem/show.blade.php
+    - resources/views/cartItem/edit.blade.php
+    - resources/views/order/index.blade.php
+    - resources/views/order/create.blade.php
+    - resources/views/order/show.blade.php
+    - resources/views/order/edit.blade.php
+    - resources/views/orderItem/index.blade.php
+    - resources/views/orderItem/create.blade.php
+    - resources/views/orderItem/show.blade.php
+    - resources/views/orderItem/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Category: { naziv: 'string:30', opis: 'text nullable' }
+    Product: { kategorija_id: 'id foreign:Category', tip_vode: 'string:20', naziv: 'string:30', opis: 'text nullable', cena: 'decimal:10,2', ambalaza: 'string:20' }
+    Cart: { kupac_id: 'id foreign:User' }
+    CartItem: { korpa_id: 'id foreign:Cart', proizvod_id: 'id foreign:Product', kolicina: integer, cena: 'decimal:10,2' }
+    Order: { kupac_id: 'id foreign:User', status: 'string:30' }
+    OrderItem: { porudzbina_id: 'id foreign:Order', proizvod_id: 'id foreign:Product', kolicina: integer, cena: 'decimal:10,2' }
