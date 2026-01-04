@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('kupac_id')->constrained('users');
-            $table->string('status', 30);
-            $table->timestamps();
-        });
+        $table->id();
+        $table->foreignId('kupac_id')->constrained('users');
+        $table->string('status')->default('Na cekanju');
+        $table->timestamps();
+    });
+
 
         Schema::enableForeignKeyConstraints();
     }
@@ -30,4 +31,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('orders');
     }
+
+    
 };

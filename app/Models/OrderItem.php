@@ -8,13 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'porudzbina_id',
         'proizvod_id',
@@ -22,28 +15,14 @@ class OrderItem extends Model
         'cena',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function product()
     {
-        return [
-            'id' => 'integer',
-            'porudzbina_id' => 'integer',
-            'proizvod_id' => 'integer',
-            'cena' => 'decimal:2',
-        ];
+        return $this->belongsTo(Product::class, 'proizvod_id');
     }
 
-    public function porudzbina(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
-    }
+    public function order()
+{
+    return $this->belongsTo(Order::class, 'porudzbina_id');
+}
 
-    public function proizvod(): BelongsTo
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

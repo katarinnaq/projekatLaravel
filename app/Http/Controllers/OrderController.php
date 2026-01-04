@@ -56,11 +56,31 @@ class OrderController extends Controller
 
         return redirect()->route('orders.index');
     }
+public function destroy(Order $order)
+{
+    // Obrisi sve stavke porudzbine pre brisanja same porudzbine
+    $order->orderItems()->delete();
 
-    public function destroy(Request $request, Order $order)
-    {
-        $order->delete();
+    $order->delete();
 
-        return redirect()->route('orders.index');
-    }
+    return redirect()->route('orders.index')
+                     ->with('success', 'Porudžbina je uspešno obrisana!');
+}
+
+
+ public function updateStatus(Request $request, Order $order)
+{
+    $request->validate([
+        'status' => 'required|in:na cekanju,u obradi,poslata,zavrsena',
+    ]);
+
+    $order->status = $request->status;
+    $order->save();
+
+    return redirect()->back()->with('success', 'Status porudžbine je uspešno promenjen!');
+}
+
+
+
+
 }

@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container mt-4">
-    <!-- Header sa naslovom i navbarom -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-primary">Eterna</h1>
 
@@ -11,13 +10,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Svi proizvodi</a>
                 </li>
-              
+
+
+                @if(auth()->user()?->role === 'user')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('carts.index') }}">Moja korpa</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('orders.index') }}">Moje porudzbine</a>
+                </li>
+                @endif
+
             </ul>
 
-            <!-- Login / Profil -->
             @guest
                 <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a>
             @else
@@ -39,14 +45,12 @@
         </nav>
     </div>
 
-    <!-- Poruka za uspeh dodavanja u korpu -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    <!-- Proizvodi -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @forelse($products as $product)
         <div class="col">

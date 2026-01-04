@@ -16,16 +16,28 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                     @if(auth()->user()?->role === 'user')
+                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        {{ __('Pocetna') }}
+                    </x-nav-link>
+                     @endif
+
                     
 
                     @if(auth()->user()?->role === 'admin')
                         <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
-                            {{ __('Dodaj proizvod') }}
+                            {{ __('Proizvodi') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('categories.create')" :active="request()->routeIs('categories.create')">
-                            {{ __('Dodaj kategoriju') }}
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories')">
+                            {{ __('Kategorije') }}
                         </x-nav-link>
+
+                         <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders')">
+                            {{ __('Lista porudzbina') }}
+                        </x-nav-link>
+
+                        
                         
                       
                     @endif

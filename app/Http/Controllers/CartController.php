@@ -6,6 +6,8 @@ use App\Http\Requests\CartStoreRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\CartItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,12 +74,10 @@ public function index()
 
 public function add(Product $product)
 {
-    // Pronađi ili kreiraj korpu za trenutnog korisnika
     $cart = Cart::firstOrCreate(
         ['kupac_id' => auth()->id()]
     );
 
-    // Dodaj stavku u korpu
     CartItem::create([
         'korpa_id' => $cart->id,
         'proizvod_id' => $product->id,
@@ -86,6 +86,48 @@ public function add(Product $product)
     ]);
 
     return redirect()->back()->with('success', 'Proizvod je dodat u korpu!');
+}
+
+// izmena
+public function checkout()
+{
+    $user = auth()->user();
+
+    $cart = Cart::where('kupac_id', $user->id)->first();
+
+    if (!$cart) {
+        return back()->with('error', 'Korpa ne postoji.');
+    }
+
+    $cartItems = CartItem::where('korpa_id', $cart->id)->get();
+
+    if ($cartItems->isEmpty()) {
+        return back()->with('error', 'Korpa je prazna.');
+    }
+
+    $total = $cartItems->sum(fn ($item) =>
+        $item->cena * $item->kolicina
+    );
+
+    $order = Order::create([
+        'kupac_id' => $user->id,
+        'status' => 'Na cekanju',
+    ]);
+
+    foreach ($cartItems as $item) {
+        OrderItem::create([
+            'porudzbina_id' => $order->id,
+            'proizvod_id' => $item->proizvod_id,
+            'kolicina' => $item->kolicina,
+            'cena' => $item->cena,
+        ]);
+    }
+
+    // isprazni korpu
+    CartItem::where('korpa_id', $cart->id)->delete();
+
+    return redirect()->route('orders.show', $order)
+        ->with('success', 'Porudžbina je uspešno kreirana!');
 }
 
 

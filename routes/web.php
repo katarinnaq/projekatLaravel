@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -31,6 +33,7 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('products', App\Http\Controllers\ProductController::class);
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
 Route::resource('carts', App\Http\Controllers\CartController::class);
 
@@ -57,5 +60,20 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.create');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::patch('/orders/{order}/status', [App\Http\Controllers\OrderController::class, 'updateStatus'])
+        ->name('orders.updateStatus');
+});
+
+
+Route::post('/cart/checkout', [CartController::class, 'checkout'])
+    ->middleware('auth')
+    ->name('cart.checkout');
+
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
 

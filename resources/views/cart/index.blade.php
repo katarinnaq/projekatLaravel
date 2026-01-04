@@ -51,7 +51,17 @@
         </table>
 
         <a href="{{ route('home') }}" class="btn btn-secondary">Nastavi kupovinu</a>
-        <a href="#" class="btn btn-success">Završi kupovinu</a>
+        {{-- <a href="#" class="btn btn-success">Završi kupovinu</a> --}}
+
+        <form action="{{ route('cart.checkout') }}" method="POST">
+                     @csrf
+                        <button type="submit" class="btn btn-success mt-3">
+                            Završi kupovinu
+                        </button>
+        </form>
+
+
+
     @endif
 </div>
 @endsection
