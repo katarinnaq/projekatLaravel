@@ -63,6 +63,7 @@
                     <h5 class="card-title">{{ $product->naziv }}</h5>
                     <p class="card-text fw-bold">{{ number_format($product->cena, 2, ',', '.') }} RSD</p>
                 </div>
+                @if(auth()->user()?->role === 'user')
 
                 <div class="card-footer text-center">
                     <form action="{{ route('cart.add', $product->id) }}" method="POST">
@@ -70,6 +71,7 @@
                         <button type="submit" class="btn btn-success w-75">Dodaj u korpu</button>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
         @empty

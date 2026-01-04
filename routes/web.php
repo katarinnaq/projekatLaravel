@@ -34,37 +34,28 @@ require __DIR__.'/auth.php';
 
 Route::resource('products', App\Http\Controllers\ProductController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
-
 Route::resource('carts', App\Http\Controllers\CartController::class);
-
 Route::resource('cart-items', App\Http\Controllers\CartItemController::class);
-
 Route::resource('orders', App\Http\Controllers\OrderController::class);
-
 Route::resource('order-items', App\Http\Controllers\OrderItemController::class);
+Route::get('/products', [ProductController::class, 'home'])->name('products.home'); // lista proizvoda
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show'); // detalji proizvoda
 
 
-// ruta za kategorije - samo admin
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
+
     Route::resource('categories', CategoryController::class);
-});
-
-// ruta za listu svih proizvoda i edit - samo admin
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.edit');
-});
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.create');
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
     Route::patch('/orders/{order}/status', [App\Http\Controllers\OrderController::class, 'updateStatus'])
-        ->name('orders.updateStatus');
+    ->name('orders.updateStatus');
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
 
@@ -72,8 +63,4 @@ Route::post('/cart/checkout', [CartController::class, 'checkout'])
     ->middleware('auth')
     ->name('cart.checkout');
 
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-});
 

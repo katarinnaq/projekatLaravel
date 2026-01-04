@@ -60,7 +60,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Sačuvaj izmene</button>
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">Nazad</a>
+        <a href="{{ route('home') }}" class="btn btn-secondary">Nazad</a>
     </form>
 </div>
 @endsection

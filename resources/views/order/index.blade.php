@@ -43,10 +43,9 @@
                         <td>
                             <span class="badge 
                                 @if($order->status === 'na cekanju') bg-warning
-                                @elseif($order->status === 'u procesu') bg-info
+                                @elseif($order->status === 'u obradi') bg-info
                                 @elseif($order->status === 'poslata') bg-primary
                                 @elseif($order->status === 'zavrsena') bg-success
-                                @elseif($order->status === 'otkazana') bg-danger
                                 @endif
                             ">{{ $order->status }}</span>
                         </td>
@@ -60,10 +59,9 @@
                                         @method('PATCH')
                                        <select name="status" class="form-select d-inline w-auto">
                                         <option value="na cekanju" {{ $order->status == 'na cekanju' ? 'selected' : '' }}>Na čekanju</option>
-                                        <option value="u procesu" {{ $order->status == 'u procesu' ? 'selected' : '' }}>U procesu</option>
+                                        <option value="u obradi" {{ $order->status == 'u obradi' ? 'selected' : '' }}>U obradi</option>
                                         <option value="poslata" {{ $order->status == 'poslata' ? 'selected' : '' }}>Poslata</option>
                                         <option value="zavrsena" {{ $order->status == 'zavrsena' ? 'selected' : '' }}>Završena</option>
-                                        <option value="otkazana" {{ $order->status == 'otkazana' ? 'selected' : '' }}>Otkazana</option>
                                     </select>
 
                                         <button type="submit" class="btn btn-warning ms-2">Promeni status</button>

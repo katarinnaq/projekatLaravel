@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         $request->session()->flash('product.id', $product->id);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.edit');
     }
 
     public function show(Request $request, Product $product)
