@@ -17,10 +17,8 @@ class CartController extends Controller
 {
 public function index()
 {
-    // Pronađi korpu trenutnog korisnika
     $cart = Cart::firstOrCreate(['kupac_id' => auth()->id()]);
 
-    // Uzmi sve stavke iz te korpe sa povezanim proizvodom
     $cartItems = CartItem::with('product')
         ->where('korpa_id', $cart->id)
         ->get();
@@ -88,23 +86,16 @@ public function add(Product $product)
     return redirect()->back()->with('success', 'Proizvod je dodat u korpu!');
 }
 
-// izmena
+// za ORDER
 public function checkout()
 {
     $user = auth()->user();
 
     $cart = Cart::where('kupac_id', $user->id)->first();
 
-    if (!$cart) {
-        return back()->with('error', 'Korpa ne postoji.');
-    }
-
     $cartItems = CartItem::where('korpa_id', $cart->id)->get();
 
-    if ($cartItems->isEmpty()) {
-        return back()->with('error', 'Korpa je prazna.');
-    }
-
+  
     $total = $cartItems->sum(fn ($item) =>
         $item->cena * $item->kolicina
     );
@@ -123,7 +114,6 @@ public function checkout()
         ]);
     }
 
-    // isprazni korpu
     CartItem::where('korpa_id', $cart->id)->delete();
 
     return redirect()->route('orders.show', $order)

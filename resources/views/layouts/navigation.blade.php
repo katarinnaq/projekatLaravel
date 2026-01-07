@@ -25,7 +25,7 @@
                     
 
                     @if(auth()->user()?->role === 'admin')
-                        <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
+                        <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                             {{ __('Proizvodi') }}
                         </x-nav-link>
 
