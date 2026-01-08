@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class DodavanjeProizvodaUKorpuTest extends TestCase
 {
@@ -18,7 +18,7 @@ class DodavanjeProizvodaUKorpuTest extends TestCase
         $product = Product::factory()->create();
 
         $response = $this->actingAs($user)
-                         ->post(route('cart.add', $product->id));
+            ->post(route('cart.add', $product->id));
 
         $response->assertStatus(302);
 

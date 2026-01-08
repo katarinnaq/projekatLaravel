@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
 
         if ($categories->isEmpty()) {
             $this->command->info('Nema kategorija! Pokreni prvo CategorySeeder.');
+
             return;
         }
 

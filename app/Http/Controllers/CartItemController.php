@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CartItemStoreRequest;
 use App\Http\Requests\CartItemUpdateRequest;
 use App\Models\CartItem;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class CartItemController extends Controller
 {

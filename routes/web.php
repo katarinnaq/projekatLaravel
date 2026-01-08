@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
-
-
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,10 +15,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,7 +25,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
 
 Route::resource('products', App\Http\Controllers\ProductController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
@@ -41,14 +35,11 @@ Route::resource('order-items', App\Http\Controllers\OrderItemController::class);
 Route::get('/products', [ProductController::class, 'home'])->name('products.home'); // lista proizvoda
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show'); // detalji proizvoda
 
-
-
-
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::patch('/orders/{order}/status', [App\Http\Controllers\OrderController::class, 'updateStatus'])
-    ->name('orders.updateStatus');
+        ->name('orders.updateStatus');
     Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -58,9 +49,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-
 Route::post('/cart/checkout', [CartController::class, 'checkout'])
     ->middleware('auth')
     ->name('cart.checkout');
-
-

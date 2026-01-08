@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\User;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -26,25 +26,25 @@ class OrderSeeder extends Seeder
                 'status' => 'na cekanju',
             ]);
 
-           $items = [
-    [
-        'proizvod_id' => 1,
-        'kolicina' => 2,
-    ],
-    [
-        'proizvod_id' => 2,
-        'kolicina' => 1,
-    ],
-    [
-        'proizvod_id' => 3,
-        'kolicina' => 1,
-    ],
-];
+            $items = [
+                [
+                    'proizvod_id' => 1,
+                    'kolicina' => 2,
+                ],
+                [
+                    'proizvod_id' => 2,
+                    'kolicina' => 1,
+                ],
+                [
+                    'proizvod_id' => 3,
+                    'kolicina' => 1,
+                ],
+            ];
 
             foreach ($items as $item) {
                 $product = Product::find($item['proizvod_id']);
 
-                if (!$product) {
+                if (! $product) {
                     continue;
                 }
 

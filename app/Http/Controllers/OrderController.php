@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderStoreRequest;
 use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -56,31 +54,27 @@ class OrderController extends Controller
 
         return redirect()->route('orders.index');
     }
-public function destroy(Order $order)
-{
-    // Obrisi sve stavke porudzbine pre brisanja same porudzbine
-    $order->orderItems()->delete();
 
-    $order->delete();
+    public function destroy(Order $order)
+    {
+        // Obrisi sve stavke porudzbine pre brisanja same porudzbine
+        $order->orderItems()->delete();
 
-    return redirect()->route('orders.index')
-                     ->with('success', 'Porudžbina je uspešno obrisana!');
-}
+        $order->delete();
 
+        return redirect()->route('orders.index')
+            ->with('success', 'Porudžbina je uspešno obrisana!');
+    }
 
- public function updateStatus(Request $request, Order $order)
-{
-    $request->validate([
-        'status' => 'required|in:na cekanju,u obradi,poslata,zavrsena',
-    ]);
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => 'required|in:na cekanju,u obradi,poslata,zavrsena',
+        ]);
 
-    $order->status = $request->status;
-    $order->save();
+        $order->status = $request->status;
+        $order->save();
 
-    return redirect()->back()->with('success', 'Status porudžbine je uspešno promenjen!');
-}
-
-
-
-
+        return redirect()->back()->with('success', 'Status porudžbine je uspešno promenjen!');
+    }
 }

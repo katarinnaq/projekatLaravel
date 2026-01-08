@@ -40,6 +40,6 @@ class Product extends Model
 
     public function kategorija(): BelongsTo
     {
-        return $this->belongsTo(Category::class,'kategorija_id');
+        return $this->belongsTo(Category::class, 'kategorija_id');
     }
 }

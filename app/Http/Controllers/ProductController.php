@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
-use App\Models\Product;
 use App\Models\Category;
-
-use Illuminate\Http\RedirectResponse;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -45,16 +43,15 @@ class ProductController extends Controller
         ]);
     }
 
-   public function edit(Request $request, Product $product)
-{
-    $categories = Category::all(); // <-- dodaj ovo
+    public function edit(Request $request, Product $product)
+    {
+        $categories = Category::all(); // <-- dodaj ovo
 
-    return view('product.edit', [
-        'product' => $product,
-        'categories' => $categories, // <-- prosledi view-u
-    ]);
-}
-
+        return view('product.edit', [
+            'product' => $product,
+            'categories' => $categories, // <-- prosledi view-u
+        ]);
+    }
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
@@ -73,9 +70,9 @@ class ProductController extends Controller
     }
 
     public function home()
-{
-    $products = Product::with('kategorija')->get(); 
+    {
+        $products = Product::with('kategorija')->get();
 
-    return view('publics.home', compact('products'));
-}
+        return view('publics.home', compact('products'));
+    }
 }
