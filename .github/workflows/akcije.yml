@@ -1,0 +1,47 @@
+name: Testovi
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Provera koda
+        uses: actions/checkout@v4
+
+      - name: Podesavanje PHP-a
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: json, curl, sqlite3
+          coverage: none
+
+      - name: Kes composer zavisnosti
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Instalacija composer paketa
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Kopiranje .env.example u .env
+        run: cp .env.example .env
+
+      - name: Generisanje aplikacijskog kljuca
+        run: php artisan key:generate
+
+      - name: Pokretanje Pint formatiranja (provera)
+        run: ./vendor/bin/pint --test
+
+      - name: Pokretanje testova
+        run: php artisan test
